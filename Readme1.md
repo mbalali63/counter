@@ -45,10 +45,17 @@ The five components designed, are as follows:
 
 ## Build a static version in React
 Now, according to the [Thinking in React](https://react.dev/learn/thinking-in-react) paper, I will create a static version of the app, including the mentioned components in the previous section.
+In this section, I will first create the components in the layout, without any style. Then I will update the CSS file and make them look the same as my wire-frame.
 
 
 
 
+
+## Challenges 
+
+1. After implementing the initially designed dimensions used in the wire-frame, the app looks silly. you can see the screenshot below. The dimensions are too large.
+   
+   ![Initial-Design-Implemented-Looks-Silly](readme-Files/initial-design-implemented-silly.png)
 
 ## Getting Started with Create React App
 
