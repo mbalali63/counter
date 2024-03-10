@@ -1,11 +1,11 @@
-# Counter
+# Timer/Stopwatch
 
 ## Introduction
 My goal by developing this program is to improve my skills and mastering in React. The idea is from the weblog article 
 "50+ Beginner and Intermediate level React Project Ideas" by R. Fulzele published at [Medium](https://medium.com/). You can find the paper [here](https://medium.com/@rohan.fulzele/50-beginner-and-intermediate-level-react-project-ideas-%EF%B8%8F-809b396faa39).
 The program description is very simple:
 
-> 2. Counter App: Build a counter application that increments or decrements a value when buttons are clicked.
+> 8. Timer/Stopwatch: Build a timer or stopwatch application with start, pause, and reset functionalities.
 
 I will keep it simple, as it is, to concentrate more on React implementation. I will also track the famous article published by React Official, [**Thinking in React**. ](https://react.dev/learn/thinking-in-react). Actually, the project plan is designed just the same as the steps provided in this paper.
 
@@ -24,12 +24,13 @@ I will keep it simple, as it is, to concentrate more on React implementation. I 
 
 
 ## Project Wire-frame:
-I have create a very simple wireframe for my counter app. you can see it designed for desktop and small android cell phone in the following images:
+I have create a very simple wireframe for my timer app. you can see it designed for desktop and small android cell phone in the following images:
 
-![Desktopn-wireframe-counter-1](readme-Files/Screenshot-desktop-1.png)
-![Desktopn-wireframe-counter-2](readme-Files/Screenshot-desktop-2.png)
-![Small-android-wireframe-counter](readme-Files/Screenshot-small-android.png)
+![Desktopn-wireframe-timer-1](readme-Files/Screenshot-desktop-1.png)
+![Desktopn-wireframe-timer-2](readme-Files/Screenshot-desktop-2.png)
+![Small-android-wireframe-timer](readme-Files/Screenshot-small-android.png)
 
+Figma files could be reached [here](https://www.figma.com/file/QgB6OT2J9yRcuBmqvFKQQo/Untitled?type=design&node-id=41-94&mode=design&t=lbMpTMJD4dkXmyVF-0).
 
 ## Break the UI into a component hierarchy
 I just breaked down the UI which I just designed in Figma, to components, based on their rolte in the program. The schematic is provided in the following image:
@@ -37,7 +38,7 @@ I just breaked down the UI which I just designed in Figma, to components, based 
 ![UI-Hierarchy](readme-Files/UI-Hierarchy.png)
 
 The five components designed, are as follows:
-1. Counter App, contains the entire App.
+1. Timer App, contains the entire App.
 2. History, shows the set times
 3. Elapsed time, is the main section of the UI, showing the elapsed time since the user clicked start.
 4. Buttons, includes the buttons of the app, and will manage their functionality.
@@ -48,7 +49,62 @@ Now, according to the [Thinking in React](https://react.dev/learn/thinking-in-re
 In this section, I will first create the components in the layout, without any style. Then I will update the CSS file and make them look the same as my wire-frame.
 
 
+## Find the minimal but complete representation of UI state
+For this section I will go through the notes in the [ref. paper](https://react.dev/learn/thinking-in-react):
 
+> Think of state as the minimal set of changing data that your app needs to remember
+
+> Now think of all of the pieces of data in this application:
+
+My app needs to remember these data and status:
+1. the history of set times
+2. The elapsed time
+3. The app status, wheter it is working, or stoped.
+4. timerID which is the 
+
+> Which of these are state? Identify the ones that are not:
+>> Does it remain unchanged over time? If so, it isn’t state.
+>> Is it passed in from a parent via props? If so, it isn’t state.
+>> Can you compute it based on existing state or props in your component? If so, it definitely isn’t state!
+
+The answer of these questions for my parmeters:
+1. The history of set times will change over time. it is not passed in as props. And we can not compute it based on the existing state or props in other components. So, this is a **State**. We will call it **historyArr**
+2. Altough the elapsed time, is eligible for all conditions of being state, but it could be assmed as the last item of history. so I will not define a seperate state variable for this parameter.
+3. The app status will change over time, based on user actions. This status is not passes via a props, and can not be computed from any other status. so it is also a **State**. We will call it **appStatus**.
+
+
+
+
+## Identify where your state should live
+Our ref. paper suggest three steps for deciding about where the state should live:
+>1. Identify every component that renders something based on that state.
+>2. Find their closest common parent component—a component above them all in the hierarchy.
+>3. Decide where the state should live:<br>
+>&nbsp;3.1. Often, you can put the state directly into their common parent.<br>
+>&nbsp;3.2. You can also put the state into some component above their common parent.<br>
+>&nbsp;3.3. If you can’t find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
+
+
+Now, for our case it will be:<br>
+A. **historyArr**
+1. The components that render something based on the state are:
+   1. History
+   2. ElapsedTime
+2. Their closest common parent is  *TimerApp*.
+3. I will put this state in the common parent, *TimerApp*.
+
+B.**appStatus**
+1. The components that render something based on the state are:
+   1. Buttons
+   2. Footer (I have an idea: The footer color could be different when the app is working.)
+2. Their closest common parent is  *TimerApp*.
+3. I will put this state in the common parent, *TimerApp*.
+
+
+
+
+## Add inverse data flow
+In this section we will handle the user input back to the app states and parameters. For this reason the required functions to handle timer start and stop will be added. 
 
 
 ## Challenges 
@@ -56,6 +112,25 @@ In this section, I will first create the components in the layout, without any s
 1. After implementing the initially designed dimensions used in the wire-frame, the app looks silly. you can see the screenshot below. The dimensions are too large.
    
    ![Initial-Design-Implemented-Looks-Silly](readme-Files/initial-design-implemented-silly.png)
+
+
+2. A challenge arise when the items of history exceed 3. then the format will be disturbed. so I set overflow to auto. but the scrollbar appears beside the history section, and looks bad. Then I add few CSS lines to hide the scroll bar.
+   Hiding scrollbar is not included in standard HTML-CSS commands, but it could be handled using webkit specs for Chrome and Safari and other commands for Firefox and IE.
+
+
+3. A very complicated challenge arise for dealing with setInterval and the React component reactions.
+   To resolve this challenge I add few useStates and also useEffect.
+   The useStates added are:
+   <ul>
+      <li>timerTrigger</li>
+      <li>timerID</li>
+   </ul>
+   I have also added a useEffect. THe useEffect deppendency is timerTrigger. 
+   I passed a function to setInterval that flips the value of timerTrigger every 1 second (1000ms). Then as the useEffect is depending on timerTrigger, it will run the function updateElapsedTime() whenever the timerTrigger is modified. So, every second, the function updateElapsedTime will be executed.
+
+   The next useState is timerID. to be consistent with React methodology, I add a useState for timerID, which is the output of setInterval function. Then, the program will remember this timerID, and I would be able to clear it inside stopTimer function.
+   
+4. The next challenge is that the last item of history, which is actually the current timer variable, is shown in history bar. So I had to hide it.
 
 ## Getting Started with Create React App
 

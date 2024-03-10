@@ -1,10 +1,12 @@
 import React from "react"
+import formatElapsedTime from "../utility"
 
-export default function History() {
-    const historyArr = ['00:00:00','01:00:00','02:00:00']
+export default function History({historyArr}) {
     const printHistory = (Arr0) => {
         const newList =  Arr0.map( (item,index) => {
-            return <li key = {index}>{item}</li>
+            if (index !== 0){
+                return <li key = {index}>{formatElapsedTime(item)}</li>
+            }
         })
         return newList
     }

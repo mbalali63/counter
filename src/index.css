@@ -13,6 +13,14 @@ body {
   padding: 187px 0 227px 0;  
 }
 
+#history-section{
+  height: 193px;
+  overflow: auto;  
+  scrollbar-color: transparent transparent;
+}
+#history-section::-webkit-scrollbar{
+  background-color: transparent;
+}
 
 #history-section ul{
   list-style-type: none;  
@@ -22,13 +30,13 @@ body {
   align-items: center;
 }
 #history-section ul li{
-  font-size: 40px;
+  font-size: 30px;
   color:#787474;
   margin-top:23px;
 }
 
 #elapsed-time-section{
-  font-size: 96px;
+  font-size: 60px;
   margin: 65px 0;
   text-align: center;
 }
@@ -42,11 +50,19 @@ body {
 
 
 #buttons-section button{
-  font-size: 40px;
-  padding: 52px 48px;
+  font-size: 28px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 1s;
+  transition: background-color 0.5s;
 }
-
+#buttons-section button:hover{
+  color:#fff;
+  border-color:#2525ff;
+  background-color: #2525ff;
+}
 
 footer{
   position: fixed;
@@ -63,4 +79,9 @@ footer{
 }
 footer a{
   color:#fff;
+  text-decoration: none;
+}
+
+footer a:hover{
+  text-decoration: underline;
 }

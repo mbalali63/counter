@@ -1,16 +1,8 @@
 import React from "react"
+import formatElapsedTime from "../utility";
 
-export default function ElapsedTime() {
-    let elapsedTime = 3910; //seconds    
-    const formatElapsedTime = (totalSeconds) => {
-        const h = Math.floor(totalSeconds / 3600);
-        const m = Math.floor((totalSeconds - 3600 * h) / 60);
-        const s = totalSeconds - 3600 * h - 60 * m;
-        const hStr = h < 10 ? `0${h.toString()}` : h.toString();
-        const mStr = m < 10 ? `0${m.toString()}` : m.toString();
-        const sStr = s < 10 ? `0${s.toString()}` : s.toString();
-        return `${hStr}:${mStr}:${sStr}`;
-    }
+export default function ElapsedTime({historyArr}) {
+    let elapsedTime = historyArr[historyArr.length - 1]; //seconds    
     return (
         <section id="elapsed-time-section">
             <h1>{formatElapsedTime(elapsedTime)}</h1>
