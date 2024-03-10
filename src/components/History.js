@@ -7,6 +7,9 @@ export default function History({historyArr}) {
             if (index !== 0){
                 return <li key = {index}>{formatElapsedTime(item)}</li>
             }
+            else {
+                return ;
+            }
         })
         return newList
     }
