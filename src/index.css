@@ -6,6 +6,7 @@
 
 body {
   width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,12 +71,20 @@ footer{
   right:0;
   bottom: 0;
   height: 51px;
-  background-color: #696565;
+  /*background-color: #696565;*/
   text-align: center;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: background-color 1s;
+}
+
+.off-footer{
+  background-color: #696565;
+}
+.on-footer{
+  background-color: #3008f6;
 }
 footer a{
   color:#fff;
@@ -84,4 +93,132 @@ footer a{
 
 footer a:hover{
   text-decoration: underline;
+}
+
+
+
+
+@media (max-width: 900px){
+  #history-section{
+    height: 182px;
+  }
+  #history-section ul li{
+    font-size: 26px;
+    margin-top:23px;
+  }
+
+  #elapsed-time-section{
+    font-size: 40px;
+    margin: 106px 0;
+  }
+
+  #buttons-section{
+    gap:96px;
+  }
+
+  #buttons-section button{
+    font-size: 20px;
+    width: 80px;
+    height: 80px;    
+  }
+  footer{
+    height: 51px;    
+    font-size:16px;
+  }
+}
+
+
+@media only screen and (width <= 640px) {    
+  #history-section{
+    height: 143px;
+  }
+  #history-section ul li{
+    font-size: 30px;
+    margin-top:19px;
+  }
+
+  #elapsed-time-section{
+    font-size: 50px;
+    margin: 109px 0;
+  }
+
+  #buttons-section{
+    gap:50px;
+  }
+
+  #buttons-section button{
+    font-size: 21px;
+    width: 100px;
+    height: 100px;    
+  }
+  footer{
+    height: 36px;    
+    font-size:12px;
+  }
+
+
+}
+
+
+
+
+@media only screen and (width <= 500px) {    
+  #history-section{
+    height: 143px;
+  }
+  #history-section ul li{
+    font-size: 30px;
+    margin-top:19px;
+  }
+
+  #elapsed-time-section{
+    font-size: 50px;
+    margin: 109px 0;
+  }
+
+  #buttons-section{
+    gap:32px;
+  }
+
+  #buttons-section button{
+    font-size: 21px;
+    width: 100px;
+    height: 100px;    
+  }
+  footer{
+    height: 36px;    
+    font-size:12px;
+  }
+}
+
+
+@media only screen and (width <= 360px) {    
+  #history-section{
+    height: 106px;
+  }
+  #history-section ul li{
+    font-size: 20px;
+    margin-top:17px;
+  }
+
+  #elapsed-time-section{
+    font-size: 40px;
+    margin: 43px 0;
+  }
+
+  #buttons-section{
+    gap:45px;
+  }
+
+  #buttons-section button{
+    font-size: 16px;
+    width: 63px;
+    height: 63px;
+  }
+  footer{
+    height: 28px;    
+    font-size:10px;
+  }
+
+
 }

@@ -12,9 +12,9 @@ function App() {
   const [timerID,setTimerID] = useState(null);
   
   function updateElapsedTime() {    
-    let currentTime = historyArr[historyArr.length - 1] + 1;
+    let currentTime = historyArr[0] + 1;
     let nextHistoryArr = [...historyArr];
-    nextHistoryArr[nextHistoryArr.length - 1] = currentTime;
+    nextHistoryArr[0] = currentTime;
     setHistoryArr(nextHistoryArr);
   }
   useEffect( () => {
@@ -34,15 +34,14 @@ function App() {
       setTimerTrigger((prevTimerTrigger) => !prevTimerTrigger);
     },1000);
     setTimerID(timerID0);
-
   }
   function stopTimer() {
     setAppStatus((prevAppStatus) => !prevAppStatus);    
     clearInterval(timerID);
   }
   function setTime() {
-    const currentTime = historyArr[historyArr.length - 1];
-    const nextHistoryArr = [...historyArr,currentTime];
+    const currentTime = historyArr[0];
+    const nextHistoryArr = [currentTime,...historyArr];
     setHistoryArr(nextHistoryArr);
   }
   return (
@@ -50,7 +49,7 @@ function App() {
       <History historyArr = {historyArr} />
       <ElapsedTime historyArr = {historyArr} />
       <Buttons appStatus = {appStatus} startTimer = {startTimer} stopTimer = {stopTimer} setTime = {setTime} />
-      <Footer />
+      <Footer appStatus={appStatus} />
     </div>
   );  
 }
