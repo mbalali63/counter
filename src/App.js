@@ -21,7 +21,7 @@ function App() {
     if (appStatus){
       updateElapsedTime();
     }
-  },[timerTrigger,appStatus])
+  },[timerTrigger,appStatus,updateElapsedTime])
 
   useEffect( () => {
   },[historyArr])
